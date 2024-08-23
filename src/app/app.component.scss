@@ -1,7 +1,8 @@
 :host {
   .container {
-    background-color: black;
+   
     height: 100%;
+    width: 100%;
     color: #ffffff;
     display: flex;
     align-items: center;
@@ -16,16 +17,16 @@
       align-items: center;
       font-size: 25px;
     }
-    .add-dish, .add-user {
+    .add-dish,
+    .add-user {
       background-color: rgba(51, 51, 51, 0.8);
       display: flex;
       flex-flow: row nowrap;
       align-items: center;
-      .fa-utensils  {
+      .fa-utensils {
         font-size: 70px;
       }
-      .fa-user
-      {
+      .fa-user-plus {
         font-size: 50px;
       }
 
@@ -36,7 +37,8 @@
         /* shadow ring 👇 */ 0 0 0 1px hsla(0, 0%, 0%, 0.05),
         /* multiple soft shadows 👇 */ 0 0.3px 0.4px hsla(0, 0%, 0%, 0.02),
         0 0.9px 1.5px hsla(0, 0%, 0%, 0.045), 0 3.5px 6px hsla(0, 0%, 0%, 0.09);
-      .input-container, .person-container {
+      .input-container,
+      .person-container {
         padding-left: 10px;
         display: flex;
         flex-direction: column;
@@ -54,7 +56,6 @@
             border: 1px solid grey;
             border-radius: 5px;
             width: 50%;
-          
           }
         }
 
@@ -64,7 +65,18 @@
         // }
       }
     }
+  }
+}
 
-   
+::ng-deep mat-form-field {
+  .mat-mdc-form-field-infix {
+    // padding-top: 0;
+  }
+  .mat-mdc-form-field-flex {
+    height: 20px !important;
+  }
+  .mdc-line-ripple
+  {
+    display: none;
   }
 }

@@ -12,53 +12,37 @@
       <span>
         <button (click)="addDishes()">Add</button>
       </span>
-     
     </div>
   </div>
 
   <div class="item-container" *ngFor="let item of itemsArray">
     <i class="fa-solid fa-plate-wheat"></i>
-   <span>{{ item.name }} : {{item.price}}</span> 
+    <span>{{ item.name }} : {{ item.price }}</span>
   </div>
 
   <div class="add-user">
-    <!-- <label>Add User</label> -->
-    <i class="fas fa-user"></i>
-    <!-- <i class="fas fa-plus-circle"></i>  -->
+    <i class="fas fa-user-plus"></i>
 
-    <div class="person-container">
-      <input type="text" [(ngModel)]="currentPerson" />
+    <div class="person-container" [formGroup]="personFormGroup">
+      <!-- <p>{{ personFormGroup.value | json }}</p> -->
+      <input type="text" formControlName="name" />
       <span>
-      <button (click)="addPerson()">Add</button>
-      </span>
-    </div>
-    
-    
-  </div>
-
-  <div>
-    <ul>
-      <li *ngFor="let p of personArray">
-        {{ p.name }}
         <mat-form-field appearance="fill">
-          <mat-label>Select items</mat-label>
-          <mat-select [(value)]="p.consumedItems" multiple>
+          <mat-label>Select Dishes</mat-label>
+          <mat-select formControlName="items" multiple>
             <mat-option *ngFor="let dish of itemsArray" [value]="dish.name">
               {{ dish.name }}
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <button (click)="itemsConsumed(p)">Add items consumed</button>
-      </li>
-    </ul>
+        <button (click)="addPerson()">Add</button>
+      </span>
+    </div>
   </div>
 
-  <div>
-    <ul>
-      <li *ngFor="let person of personArray">
-        {{ person.name }}: {{ person.totalPrice }}
-      </li>
-    </ul>
+  <div *ngFor="let person of personArray">
+    <i class="fas fa-user"></i>
+    {{ person.name }}: {{ person.totalPrice }}
   </div>
 
   <!-- ng add @angular/material

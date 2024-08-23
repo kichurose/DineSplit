@@ -26,6 +26,7 @@ import { Dish } from './models/Dish';
 })
 export class AppComponent {
   public formGroup: FormGroup;
+  public personFormGroup: FormGroup;
   title = 'DineSplit';
   public itemToPriceMap: Map<string, number> = new Map<string, number>();
   public dishName: string = '';
@@ -43,6 +44,11 @@ export class AppComponent {
       price: [],
       selectedItems: [],
     });
+
+    this.personFormGroup = this.fb.group({
+      name: [],
+      items: [],
+    });
   }
 
   //   public addItem(): void{
@@ -56,35 +62,22 @@ export class AppComponent {
       this.itemToPriceMap.set(name, price);
       this.formGroup.reset();
       const newDish = new Dish(name, price);
-      this.itemsArray.push(newDish); 
+      this.itemsArray.push(newDish);
     }
   }
 
   public addPerson(): void {
-    const test = this.personArray.push(new Person(this.currentPerson));
-    this.currentPerson = '';
-    console.log(this.personArray);
-  }
+    const personName = this.personFormGroup.get('name').value;
+    const dishes = this.personFormGroup.get('items').value;
 
-  public itemsConsumed(person: Person): void {
     let total: number = 0;
-    person.consumedItems.forEach((x) => {
-      const test: number = Number(this.itemToPriceMap.get(x));
+    dishes.forEach((dish) => {
+      const test: number = Number(this.itemToPriceMap.get(dish));
       total = total + test;
     });
-    person.totalPrice = total;
-    // console.log(person);
-    this.updatePersonInArray(person);
-  }
+    var person = new Person(personName, dishes, total);
 
-  private updatePersonInArray(updatedPerson: Person): void {
-    const index = this.personArray.findIndex(
-      (p) => p.name === updatedPerson.name
-    );
-    if (index !== -1) {
-      this.personArray[index] = updatedPerson;
-    } else {
-      console.warn('Person not found in the array');
-    }
+    this.personArray.push(person);
+    this.personFormGroup.reset();
   }
 }
