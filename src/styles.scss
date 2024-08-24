@@ -1,5 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0px !important; font-family: Roboto, "Helvetica Neue", sans-serif;
-    background-color: black; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0px !important;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+ // background-color: #343733;
+  background-image: url(./app/na.jpg);
+  background-size: cover;     /* Make the image cover the entire viewport */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; 
+}

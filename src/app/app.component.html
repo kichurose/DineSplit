@@ -15,26 +15,40 @@
     </div>
   </div>
 
-  <div class="item-container" *ngFor="let item of itemsArray">
-    <i class="fa-solid fa-plate-wheat"></i>
-    <span>{{ item.name }} : {{ item.price }}</span>
+  <button class="view-button"(click)="onViewClick()">View Dishes</button>
+
+  <div class="view-items" *ngIf="showItems">
+    <div class="item-container" *ngFor="let item of itemsArray">
+      <i class="fa-solid fa-plate-wheat"></i>
+      <div class="dish-container">
+        <label class="name">
+          {{ item.name }}
+        </label>
+        <label>
+          {{ item.price }}
+        </label>
+      </div>
+    </div>
   </div>
+ 
 
   <div class="add-user">
     <i class="fas fa-user-plus"></i>
 
     <div class="person-container" [formGroup]="personFormGroup">
       <!-- <p>{{ personFormGroup.value | json }}</p> -->
+      <mat-label>User</mat-label>
       <input type="text" formControlName="name" />
+      <mat-label>Select Dishes</mat-label>
+      <mat-form-field appearance="fill">
+        <!-- <mat-label>Select Dishes</mat-label> -->
+        <mat-select formControlName="items" multiple>
+          <mat-option *ngFor="let dish of itemsArray" [value]="dish.name">
+            {{ dish.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
       <span>
-        <mat-form-field appearance="fill">
-          <mat-label>Select Dishes</mat-label>
-          <mat-select formControlName="items" multiple>
-            <mat-option *ngFor="let dish of itemsArray" [value]="dish.name">
-              {{ dish.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
         <button (click)="addPerson()">Add</button>
       </span>
     </div>

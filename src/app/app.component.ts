@@ -34,7 +34,8 @@ export class AppComponent {
   public personArray: Person[] = [];
   public itemsArray: Dish[] = [];
 
-  // public showPerson: boolean = false;
+
+   public showItems: boolean = false;
 
   constructor(private fb: FormBuilder) {}
   //
@@ -64,6 +65,16 @@ export class AppComponent {
       const newDish = new Dish(name, price);
       this.itemsArray.push(newDish);
     }
+  }
+
+
+  onViewClick(): void{
+    if(this.itemsArray.length >0)
+    {
+      this.showItems = !this.showItems;
+    }
+   // console.log(this.showItems)
+
   }
 
   public addPerson(): void {
