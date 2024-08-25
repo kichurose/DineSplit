@@ -8,8 +8,15 @@ body {
   margin: 0px !important;
   font-family: Roboto, "Helvetica Neue", sans-serif;
  // background-color: #343733;
-  background-image: url(./app/na.jpg);
+  background-image: url(./app/images/briend.jpg);
   background-size: cover;     /* Make the image cover the entire viewport */
   background-position: center; /* Center the image */
   background-repeat: no-repeat; 
+//   opacity: 0.5;
+
 }
+
+.cdk-overlay-dark-backdrop {
+    background: rgba(0, 0, 0, 0.8);
+  }
+  

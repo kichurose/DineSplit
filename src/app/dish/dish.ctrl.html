@@ -1,0 +1,28 @@
+
+
+<div class="add-dish" [formGroup]="formGroup">
+    <div class="image-container">
+ <img src="close.png"  (click)="onClose()">
+    </div>
+   
+    <div class="test">
+        <!-- <i class="fas fa-utensils"></i> -->
+        <img src="fast-food.png"  >
+        <!-- <i class="fas fa-plus-circle"></i>  -->
+    
+        <div class="input-container">
+          <mat-label>Dish</mat-label>
+          <input matInput formControlName="name" />
+          <mat-label>Price</mat-label>
+          <input matInput formControlName="price" />
+          <div class="footer">
+            <button (click)="onClose()">Back</button>
+            <!-- <i class="fa-solid fa-xmark" (click)="onClose()"></i> -->
+            <button (click)="addDishes()">Add</button>
+            
+          </div>
+        </div>
+
+    </div>
+    
+  </div>

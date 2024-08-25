@@ -1,62 +1,61 @@
 <div class="container">
-  <div class="header">DINE SPLIT</div>
-  <div class="add-dish" [formGroup]="formGroup">
-    <i class="fas fa-utensils"></i>
-    <!-- <i class="fas fa-plus-circle"></i>  -->
-
-    <div class="input-container">
-      <mat-label>Dish</mat-label>
-      <input matInput formControlName="name" />
-      <mat-label>Price</mat-label>
-      <input matInput formControlName="price" />
-      <span>
-        <button (click)="addDishes()">Add</button>
-      </span>
-    </div>
+  <div class="header">
+    <label> DINE SPLIT </label>
+    <img src="burger.png" (click)="openDishOverlay()" />
+    <!-- <i class="fa-solid fa-hamburger" (click)="openDishOverlay()"></i> -->
   </div>
+  <div class="content-container">
+    <!-- <dish (itemAdded)="addItem($event)"></dish> -->
+    <button class="view-button" (click)="onViewClick()" *ngIf="showView">
+      VIEW DISHES
+    </button>
 
-  <button class="view-button"(click)="onViewClick()">View Dishes</button>
-
-  <div class="view-items" *ngIf="showItems">
-    <div class="item-container" *ngFor="let item of itemsArray">
-      <i class="fa-solid fa-plate-wheat"></i>
-      <div class="dish-container">
-        <label class="name">
-          {{ item.name }}
-        </label>
-        <label>
-          {{ item.price }}
-        </label>
+    <div class="view-items" *ngIf="showItems">
+      <div
+        class="item-container"
+        *ngFor="let item of itemsArray; let i = index"
+      >
+        <!-- <i class="fa-solid fa-plate-wheat"></i> -->
+        <div class="dish-container">
+          <label class="name">
+            {{ item.name }}
+          </label>
+          <label>
+            {{ item.price }}
+          </label>
+        </div>
+        <img src="edit.png" (click)="onEdit(i)" />
+        <img src="remove-from-cart.png" />
       </div>
     </div>
-  </div>
- 
 
-  <div class="add-user">
-    <i class="fas fa-user-plus"></i>
+    <div class="add-user">
+      <!-- <i class="fas fa-user-plus"></i> -->
+      <img src="person.png" />
 
-    <div class="person-container" [formGroup]="personFormGroup">
-      <!-- <p>{{ personFormGroup.value | json }}</p> -->
-      <mat-label>User</mat-label>
-      <input type="text" formControlName="name" />
-      <mat-label>Select Dishes</mat-label>
-      <mat-form-field appearance="fill">
-        <!-- <mat-label>Select Dishes</mat-label> -->
-        <mat-select formControlName="items" multiple>
-          <mat-option *ngFor="let dish of itemsArray" [value]="dish.name">
-            {{ dish.name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <span>
-        <button (click)="addPerson()">Add</button>
-      </span>
+      <div class="person-container" [formGroup]="personFormGroup">
+        <!-- <p>{{ personFormGroup.value | json }}</p> -->
+        <mat-label>User</mat-label>
+        <input type="text" formControlName="name" />
+        <mat-label>Select Dishes</mat-label>
+        <mat-form-field appearance="fill">
+          <!-- <mat-label>Select Dishes</mat-label> -->
+          <mat-select formControlName="items" multiple>
+            <mat-option *ngFor="let dish of itemsArray" [value]="dish.name">
+              {{ dish.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <span>
+          <button (click)="addPerson()">Add</button>
+        </span>
+      </div>
     </div>
-  </div>
 
-  <div *ngFor="let person of personArray">
-    <i class="fas fa-user"></i>
-    {{ person.name }}: {{ person.totalPrice }}
+    <div *ngFor="let person of personArray">
+      <i class="fas fa-user"></i>
+      {{ person.name }}: {{ person.totalPrice }}
+    </div>
   </div>
 
   <!-- ng add @angular/material
