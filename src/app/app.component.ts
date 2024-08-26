@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -48,8 +48,13 @@ export class AppComponent {
   public showView: boolean = false;
   public showItems: boolean = false;
   public selectedUserId: number  = 0;
+  public dishesForm: FormGroup;
 
   constructor(private fb: FormBuilder, private overlay: Overlay,) {}
+
+  get dishes(): FormArray {
+    return this.dishesForm.get('dishes') as FormArray;
+  }
 
   public ngOnInit(): void {
     this.formGroup = this.fb.group({
@@ -58,13 +63,26 @@ export class AppComponent {
       selectedItems: [],
     });
 
+    this.dishesForm = this.fb.group({
+      dishes: this.fb.array([])
+    });
+
+
     this.personFormGroup = this.fb.group({
       name: [],
       items: [],
     });
   }
 
+  addDish(): void {
+    const dishGroup = this.fb.group({
+      name: ['', Validators.required],
+      quantity: [1, [Validators.required, Validators.min(1)]],
+      servingSize: ['half', Validators.required]
+    });
 
+    this.dishes.push(dishGroup);
+  }
 
   public onEdit(index: number): void {
     this.openDishOverlay(index);

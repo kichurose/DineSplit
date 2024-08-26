@@ -48,15 +48,58 @@
         <p>{{ personFormGroup.value | json }}</p>
         <mat-label>User</mat-label>
         <input type="text" formControlName="name" />
-        <mat-label>Select Dishes</mat-label>
-        <mat-form-field appearance="fill">
-          <!-- <mat-label>Select Dishes</mat-label> -->
+        <div>
+          <mat-label>Add Dishes</mat-label>
+          <i class="fas fa-plus" (click)="addDish()"></i>
+        </div>
+     
+
+        <table mat-table formArrayName="dishes" class="mat-elevation-z8">
+          <thead>
+            <tr>
+              <th mat-header-cell *matHeaderCellDef>Dish Name</th>
+              <th mat-header-cell *matHeaderCellDef>Quantity</th>
+              <th mat-header-cell *matHeaderCellDef>Serving Size</th>
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let dish of dishes.controls; let i = index" [formGroupName]="i">
+              <td mat-cell>
+                <mat-form-field>
+                  <mat-label>Dish Name</mat-label>
+                  <input matInput formControlName="name" />
+                </mat-form-field>
+              </td>
+              <td mat-cell>
+                <mat-form-field>
+                  <mat-label>Quantity</mat-label>
+                  <input matInput formControlName="quantity" type="number" />
+                </mat-form-field>
+              </td>
+              <td mat-cell>
+                <mat-form-field>
+                  <mat-label>Serving Size</mat-label>
+                  <mat-select formControlName="servingSize">
+                    <mat-option value="half">Half</mat-option>
+                    <mat-option value="full">Full</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </td>
+              <td mat-cell>
+                <!-- <button (click)="removeDish(i)">Remove</button> -->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- <mat-form-field appearance="fill">
           <mat-select formControlName="items" multiple>
             <mat-option *ngFor="let dish of itemsArray" [value]="dish.name">
               {{ dish.name }}
             </mat-option>
           </mat-select>
-        </mat-form-field>
+        </mat-form-field> -->
         <span>
           <button (click)="addPerson()">Add</button>
         </span>
