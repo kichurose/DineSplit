@@ -1,0 +1,9 @@
+<div class="person-container" >
+    <!-- <p>{{ personFormGroup.value | json }}</p> -->
+    <mat-label>User</mat-label>
+    <input type="text" [(ngModel)]="username" />
+
+    <span>
+      <button (click)="addPerson()">Add</button>
+    </span>
+  </div>

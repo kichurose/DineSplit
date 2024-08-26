@@ -16,6 +16,7 @@ import {
   OverlayRef,
 } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
+import { UserComponent } from './user-component/user.ctrl';
 
 @Component({
   selector: 'app-root',
@@ -30,6 +31,7 @@ import { ComponentPortal } from '@angular/cdk/portal';
     MatInputModule,
     DishComponent,
     OverlayModule,
+    UserComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -45,8 +47,9 @@ export class AppComponent {
   private overlayRef: OverlayRef;
   public showView: boolean = false;
   public showItems: boolean = false;
+  public selectedUserId: number  = 0;
 
-  constructor(private fb: FormBuilder, private overlay: Overlay) {}
+  constructor(private fb: FormBuilder, private overlay: Overlay,) {}
 
   public ngOnInit(): void {
     this.formGroup = this.fb.group({
@@ -61,10 +64,45 @@ export class AppComponent {
     });
   }
 
-  public addItem(newDish: Dish): void {}
+
 
   public onEdit(index: number): void {
     this.openDishOverlay(index);
+  }
+
+  onUserSelect(event: any): void {
+    this.selectedUserId = Number(event.target.value);
+    const person = this.personArray.find((p) => p.userId === this.selectedUserId);
+    if (person) {
+      this.personFormGroup.patchValue({
+        name: person.name
+      });
+    }
+   
+  }
+
+  public addUser(): void {
+    const overlayConfig = new OverlayConfig({
+      hasBackdrop: true,
+      backdropClass: 'cdk-overlay-dark-backdrop',
+      panelClass: 'custom-overlay-panel',
+      positionStrategy: this.overlay
+        .position()
+        .global()
+        .centerHorizontally()
+        .centerVertically(),
+    });
+    this.overlayRef = this.overlay.create(overlayConfig);
+    
+    const userOverlayPortal = new ComponentPortal(UserComponent);
+    const overlay = this.overlayRef.attach(userOverlayPortal);
+    overlay.instance.usernameChange.subscribe((user) => {
+      this.personArray.push(new Person(user, []));
+      this.overlayRef.detach();
+      this.overlayRef.dispose();
+      console.log(this.personArray);
+    });
+  
   }
 
   public openDishOverlay(index?: number): void {
